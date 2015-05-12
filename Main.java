@@ -1,6 +1,6 @@
 package com.nich01as.uber2015;
 
-public class Main {
+public class Main2 {
 	
 	private static class UFile {
 		int location = 0;
@@ -31,11 +31,12 @@ public class Main {
 				return 0;
 			}
 			StringBuilder lineSb = new StringBuilder(readContent);
-			if (lineSb.length() == 0) {
-				int readCount = read(lineSb, len);
-				if (readCount == 0) {
-					return 0;
-				}
+			if (lineSb.length() < len) {
+				read(lineSb, len - lineSb.length());
+			}
+			
+			if (lineSb.length() ==0) {
+				return 0;
 			}
 			int newLineIdx = -1;
 			for (int i = 0; i < lineSb.length(); i++) {
@@ -61,6 +62,7 @@ public class Main {
 					return len;
 				} else {
 					sb.append(lineSb);
+					readContent = "";
 					return lineSb.length() + readLine(sb, len - sb.length());
 				}
 			}
@@ -91,11 +93,15 @@ public class Main {
 //		
 		file = new UFile("aaaa\nbbbbb\nc");
 		sb = new StringBuilder();
-		int count = file.readLine(sb, 100);
+		int count = file.readLine(sb, 1);
 		System.out.println(sb.toString() + "\nreadCount " + count);
 		
 		sb = new StringBuilder();
-		count = file.read(sb, 12);
+		count = file.readLine(sb, 12);
+		System.out.println(sb.toString() + "\nreadCount " + count);
+		
+		sb = new StringBuilder();
+		count = file.readLine(sb, 102);
 		System.out.println(sb.toString() + "\nreadCount " + count);
 	}
 
